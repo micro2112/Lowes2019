@@ -32,6 +32,7 @@
 // See http://creativecommons.org/licenses/by-nc-sa/4.0/ for license details.
 //
 //  Contributions by Wesley Hampton
+//  2019 Updated by M. Ricchino
 //
 //  The developer has no associated with Lowe's Company, Inc or the Lowe's home improvements stores.
 //  The word "Lowes" in the title is used for identification and does not imply endorsement by Lowes Company, Inc.
@@ -40,7 +41,7 @@
 //   3.0 Updated to work on non-mobile site.  Added store picking functionality
 //   3.1 Fixes for Lowes website change
 //   3.2 2019-1004 Updates for website change & github autoupdate
-// test for update only. 
+
 
 // get our own version of jquery.   The first line should be enough, but Android tampermonkey needed something more explicit....
 var jq_2 = this.$ = this.jQuery = jQuery.noConflict(true);
