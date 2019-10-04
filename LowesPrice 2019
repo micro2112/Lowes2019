@@ -329,14 +329,19 @@ var states = [
     $('#tabs-info').html("<div id='NS_DIV' style='min-width: 400px; max-width: 600px;'> \
            <p><b> Lowes Price Checker </b></p> \
            <p> If this tool has saved you money, consider donating to the developer via PayPal. </p> \
-           <div id='donate'><input style='display: block; margin-left: auto; margin-right:auto;' type='image' id='donateBtn' src='https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif' alt='Donate'></input></div> \
+           <hr/><p> Updated by Micro2112 <\p> <div id='donate1'><input style='display: block; margin-left: auto; margin-right:auto;' type='image' id='donateBtn1' src='https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif' alt='Donate'></input></div> \
+           <hr/><p> Original Developer<\p> <div id='donate2'><input style='display: block; margin-left: auto; margin-right:auto;' type='image' id='donateBtn2' src='https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif' alt='Donate'></input></div> \
            <hr/><div id='storeSearcher'><p> Find all Lowe's stores in the USA.</p> \
            <p> This generates a list of all stores that can be pasted into the script.</p> \
            <p> -- Warning this action takes a few minutes. --</p> \
            <div id='getStDiv' style='margin-left: 40%;' ><button type='button' id='getStores' class='btn btn-green'>Find Stores</button></div></div></DIV>");
     $('#getStores').click(function () { findStores(); });
 
-    $('#donateBtn').click(function () {
+    $('#donate1Btn').click(function () {
+         var win = window.open("https://www.paypal.me/micro2112?locale.x=en_US", '_blank');
+         win.focus();
+         });
+    $('#donate2Btn').click(function () {
          var win = window.open("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FDW4NZ6PRMDMJ&lc=US&item_name=Lowes%20Price%20Checker&item_number=LPC&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted", '_blank');
          win.focus();
          });
