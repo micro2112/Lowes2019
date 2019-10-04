@@ -21,7 +21,7 @@
 // @grant       GM_setValue
 // @grant       GM_registerMenuCommand
 // @noframes
-// @version     3.1.6
+// @version     3.2.2
 // @run-at document-end
 // @contributionURL https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FDW4NZ6PRMDMJ&lc=US&item_name=Lowes%20Price%20Checker&item_number=LPC&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 // @contributionAmount $5.00
@@ -39,6 +39,7 @@
 //   2.2 Update for Lowes website change
 //   3.0 Updated to work on non-mobile site.  Added store picking functionality
 //   3.1 Fixes for Lowes website change
+//   3.2 2019-1004 Updates for website change & github autoupdate
 
 // get our own version of jquery.   The first line should be enough, but Android tampermonkey needed something more explicit....
 var jq_2 = this.$ = this.jQuery = jQuery.noConflict(true);
