@@ -40,6 +40,7 @@
 //   3.0 Updated to work on non-mobile site.  Added store picking functionality
 //   3.1 Fixes for Lowes website change
 //   3.2 2019-1004 Updates for website change & github autoupdate
+// test for update only. 
 
 // get our own version of jquery.   The first line should be enough, but Android tampermonkey needed something more explicit....
 var jq_2 = this.$ = this.jQuery = jQuery.noConflict(true);
