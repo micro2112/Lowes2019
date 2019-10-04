@@ -26,7 +26,8 @@ I create this repo to host the new version.
  ![CheckPrice](https://github.com/micro2112/Lowes2019/blob/master/images/PriceCheck.JPG)
  
  You will then see the main landing page
- Initial setup may require you to search for stores using the button at the bottom. 
+ 
+ Find stores button generates a GIANT list that needs reformatted into this script. If you find a store missing report an issue here and I can update the list. 
  
  ![LandingPage](https://github.com/micro2112/Lowes2019/blob/master/images/InitialTab.JPG)
  
