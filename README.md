@@ -8,6 +8,8 @@ I had some time and decided to try to update it myself.
 
 I create this repo to host the new version.
 
+# Issues Reported
+1. 20191004 Some items show shipping available but in cart option is grey
 
 ## Installation
 
