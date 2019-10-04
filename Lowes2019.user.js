@@ -795,10 +795,11 @@ var states = [
             try {
                 my_debug(sData);
 //               var re = /availabileQuantity":(.*?){2}\,"/mg;
-                 var re = /pickup":(.*?)Store(.*?)(availabileQuantity":)(.*?)\,/mg
+//                 var re = /pickup":(.*?)Store(.*?)(availabileQuantity":)(.*?)\,/mg
+                 var re = /pickup":(.*?)Store(.*?)(leadtimeToday":(.*?)\})(.*?)(availabileQuantity":)(.*?)\,/mg
                var pMatch = re.exec(sData);
                my_debug(pMatch);
-               if (pMatch && pMatch.length >= 2) availStatus = pMatch[4];
+               if (pMatch && pMatch.length >= 2 && (pMatch[4] = "true")) availStatus = pMatch[7];
             } catch (e) {
                 my_debug(e);
             }
