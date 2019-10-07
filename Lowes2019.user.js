@@ -442,31 +442,24 @@ var states = [
        zip = (pad+zip).slice(-pad.length);
 
        //request zip code data using json
-       $.ajax({
-          url:'http://maps.googleapis.com/maps/api/geocode/json?address=' + zip,
+      $.ajax({
+          url:'https://nominatim.openstreetmap.org/search?country=usa&format=json&postalcode=' + zip,
           type:"GET",
           dataType: 'json',
           async:'true',
           success: function (data) {
-            my_debug(data);            
-            if (!data.status || data.status != "OK") {
-                my_debug('failed to get zip');
-                return;
-            }            
-            if (!data.results || !data.results[0] || !data.results[0].geometry) {
-                my_debug('Cannot get geometry data');
-                return;
-            }
+            my_debug(data);
             
+
             $('#distSel option:selected').each(function () { filterDist= $(this).val();});
-      
+
             // get lat/lon in radians for the selected zip code
-            lat1 = data.results[0].geometry.location.lat;
-            lon1 = data.results[0].geometry.location.lng;           
+            lat1 = data[0].lat;
+            lon1 = data[0].lon;
             my_debug("Zip Lat/Lon: " + lat1 + "/" + lon1);
             lat1 = lat1 * 3.14159/180.0;
             lon1 = lon1 * 3.14159/180.0;
-            
+      
             // get the distance string
             $('#distSel option:selected').each(function () { filterDist= $(this).val();});
             
