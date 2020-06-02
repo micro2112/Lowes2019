@@ -231,6 +231,7 @@ var states = [
 
     // add a button to the web page above the product image to bring up the price checker popup
     $('#mainContent').prepend('<div id="checkPrice"><button id="checkPriceBtn" class="btn btn-green">Check Prices</button></div>');
+    $('#main').prepend('<div id="checkPrice"><button id="checkPriceBtn" class="btn btn-green">Check Prices</button></div>');
 
     $('#detailCont').prepend('<div id="checkPrice"><button id="checkPriceBtn" class="btn btn-green">Check Prices</button></div>');
     // add an action with the price check button is pressed  -> open dialog
@@ -700,7 +701,8 @@ var states = [
             if (searchStore.hasOwnProperty(storeId) && searchStore[storeId] &&
                 storeData.hasOwnProperty(storeId) ) {
                 // build the URL of the product details page w/ store ID
-                var qURL = baseURL + unsafeWindow.Lowes.ProductDetail.productPath + '/pricing/' + storeId;
+                // var qURL = baseURL + unsafeWindow.Lowes.ProductDetail.productPath + '/pricing/' + storeId;
+                var qURL = unsafeWindow.location.href + '/pricing/' + storeId;
                 my_debug(qURL);
                 // request the prodcut details.  The result is processed by the function returned by the parseQty() function
                 setTimeout( function(url, sID) { return function() { $.get(url, parseQty(sID));}}(qURL,storeId), msgNum * millis);
