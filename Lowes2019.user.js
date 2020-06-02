@@ -21,7 +21,7 @@
 // @grant       GM_setValue
 // @grant       GM_registerMenuCommand
 // @noframes
-// @version     3.2.3
+// @version     3.3.0
 // @run-at document-end
 // @contributionURL https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FDW4NZ6PRMDMJ&lc=US&item_name=Lowes%20Price%20Checker&item_number=LPC&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 // @contributionAmount $5.00
@@ -42,6 +42,7 @@
 //   3.1 Fixes for Lowes website change
 //   3.2 2019-1004 Updates for website change & github autoupdate
 //      .3 Paypal Links were broken
+//   3.3 2020-06-02 Update for new Lowes website.
 
 
 // get our own version of jquery.   The first line should be enough, but Android tampermonkey needed something more explicit....
@@ -232,7 +233,6 @@ var states = [
     // add a button to the web page above the product image to bring up the price checker popup
     $('#mainContent').prepend('<div id="checkPrice"><button id="checkPriceBtn" class="btn btn-green">Check Prices</button></div>');
     $('#main').prepend('<div id="checkPrice"><button id="checkPriceBtn" class="btn btn-green">Check Prices</button></div>');
-
     $('#detailCont').prepend('<div id="checkPrice"><button id="checkPriceBtn" class="btn btn-green">Check Prices</button></div>');
     // add an action with the price check button is pressed  -> open dialog
     $('#checkPriceBtn').click(function () {
