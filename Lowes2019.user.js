@@ -14,6 +14,9 @@
 // @require      https://code.jquery.com/ui/1.11.4/jquery-ui.min.js
 // @screenshot   https://i949.photobucket.com/albums/ad337/pcazzola/lpc_1.png http://i949.photobucket.com/albums/ad337/pcazzola/lpc_icon.png
 // @noframes
+// @updateURL       https://github.com/micro2112/Lowes2019/raw/master/Lowes2019.user.js
+// @downloadURL     https://github.com/micro2112/Lowes2019/raw/master/Lowes2019.user.js
+// @version     3.4.0
 // @grant       unsafeWindow
 // @grant       GM_addStyle
 // @grant       GM_getResourceText
@@ -21,11 +24,18 @@
 // @grant       GM_setValue
 // @grant       GM_registerMenuCommand
 // @noframes
-// @version     3.3.0
 // @run-at document-end
 // @contributionURL https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FDW4NZ6PRMDMJ&lc=US&item_name=Lowes%20Price%20Checker&item_number=LPC&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 // @contributionAmount $5.00
 // ==/UserScript==
+//   CHANGELOG
+//   2.2 Update for Lowes website change
+//   3.0.0 Updated to work on non-mobile site.  Added store picking functionality
+//   3.1.0 Fixes for Lowes website change
+//   3.2.0 2019-1004 Updates for website change & github autoupdate
+//      .3 Paypal Links were broken
+//   3.3.0 2020-06-02 Update for new Lowes website.
+//   3.4.0 2020-08-11 Decreased requests per second limits to resolve triggering a block from LOWES. Added 'Check For Updates' Button. 
 
 // Copyright Phllip Cazzola 2015, 2016
 // Lowes Price Checker is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -37,13 +47,6 @@
 //  The developer has no associated with Lowe's Company, Inc or the Lowe's home improvements stores.
 //  The word "Lowes" in the title is used for identification and does not imply endorsement by Lowes Company, Inc.
 //
-//   2.2 Update for Lowes website change
-//   3.0 Updated to work on non-mobile site.  Added store picking functionality
-//   3.1 Fixes for Lowes website change
-//   3.2 2019-1004 Updates for website change & github autoupdate
-//      .3 Paypal Links were broken
-//   3.3 2020-06-02 Update for new Lowes website.
-
 
 // get our own version of jquery.   The first line should be enough, but Android tampermonkey needed something more explicit....
 var jq_2 = this.$ = this.jQuery = jQuery.noConflict(true);
@@ -334,6 +337,7 @@ var states = [
     $('#tabs-info').html("<div id='NS_DIV' style='min-width: 400px; max-width: 600px;'> \
            <p><b> Lowes Price Checker </b></p> \
            <p> If this tool has saved you money, consider donating to the developer via PayPal. </p> \
+           <p> <button type='button' id='updater' style='margin-left: 20px;'>Check For Updates</button> </p> \
            <hr/><p> Updated by Micro2112 <\p> <div id='donate1'><input style='display: block; margin-left: auto; margin-right:auto;' type='image' id='donateBtn1' src='https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif' alt='Donate'></input></div> \
            <hr/><p> Original Developer<\p> <div id='donate2'><input style='display: block; margin-left: auto; margin-right:auto;' type='image' id='donateBtn2' src='https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif' alt='Donate'></input></div> \
            <hr/><div id='storeSearcher'><p> Find all Lowe's stores in the USA.</p> \
@@ -342,6 +346,11 @@ var states = [
            <div id='getStDiv' style='margin-left: 40%;' ><button type='button' id='getStores' class='btn btn-green'>Find Stores</button></div></div></DIV>");
     $('#getStores').click(function () { findStores(); });
 
+    $('#updater').click(function () {
+         var win = window.open("https://github.com/micro2112/Lowes2019/raw/master/Lowes2019.user.js", '_blank');
+         win.focus();
+         });
+ 
     $('#donateBtn1').click(function () {
          var win = window.open("https://www.paypal.me/micro2112?locale.x=en_US", '_blank');
          win.focus();
@@ -520,7 +529,7 @@ var states = [
                    <option value="pricedown" text="Price-High to Low">Price-High to Low</option>\
                    <option value="qup" text="Quantity-Low to Hight">Quantity-Least to Most</option>\
                    <option value="qdown" text="Quantity-High to Low">Quantity-Most to Least</option></select></div></td></tr> \
-           <tr><td><div style="text-align: left;"> Requests per second:   1<input id="speedSel" type="range" min="1" max="10" step="1" value="5" style="width: 100px; vertical-align: middle;"/> 10</div></td></tr> \
+           <tr><td><div style="text-align: left;"> Requests per second:   0.5<input id="speedSel" type="range" min="0.5" max="10" step="0.5" value="5" style="width: 100px; vertical-align: middle;"/> 10</div></td></tr> \
            <tr><td><div style="text-align: left;"><input type="checkbox" id="showStoreSearch" name="showStore"  ' + (options.showStoreSearch ? "checked" : "" ) + ' /> Enable store searcher on info tab</div></td></tr> \
            </tbody></table></div>  \
                <div id="myOptTableFooter" data-role="footer" style="font-size: 0.5em; width: 400px;"> \
