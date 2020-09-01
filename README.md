@@ -9,7 +9,7 @@ I had some time and decided to try to update it myself.
 I create this repo to host the new version.
 
 # Issues Reported
-1. 20191004 Some items show shipping available but in cart option is grey
+# ** AUG 2020 - SCRIPT IS CURRENTLY BROKEN, Lowes updated again and broke the search code. Trying to find a fix. **
 
 ## Installation
 
