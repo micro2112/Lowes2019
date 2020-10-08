@@ -9,7 +9,7 @@ I had some time and decided to try to update it myself.
 I create this repo to host the new version.
 
 # Issues Reported
-# ** AUG 2020 - SCRIPT IS CURRENTLY BROKEN, Lowes updated again and broke the search code. Trying to find a fix. **
+~~ # ~~** AUG 2020 - SCRIPT IS CURRENTLY BROKEN, Lowes updated again and broke the search code. Trying to find a fix. **~~
 
 ## Installation
 
