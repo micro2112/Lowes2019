@@ -16,7 +16,7 @@
 // @noframes
 // @updateURL       https://github.com/micro2112/Lowes2019/raw/master/Lowes2019.user.js
 // @downloadURL     https://github.com/micro2112/Lowes2019/raw/master/Lowes2019.user.js
-// @version     3.5.1
+// @version     3.5.2
 // @grant       unsafeWindow
 // @grant       GM_addStyle
 // @grant       GM_getResourceText
@@ -39,7 +39,8 @@
 //   3.3.0 2020-06-02 Update for new Lowes website.
 //   3.4.0 2020-08-11 Decreased requests per second limits to resolve triggering a block from LOWES. Added 'Check For Updates' Button.
 //   3.5.0 2020-10-07 Fix for new Lowes site again.
-//   3.5.1 2020-10-08 Updated time between searches to avoid IP bans. 
+//   3.5.1 2020-10-08 Restored time delay between searches to avoid IP bans. 
+//   3.5.2 2020-10-09 Additional Delay option for IP bans, useful for searching high number of stores. 
 
 // Copyright Phllip Cazzola 2015, 2016
 // Lowes Price Checker is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -539,7 +540,8 @@ var states = [
                    <option value="pricedown" text="Price-High to Low">Price-High to Low</option>\
                    <option value="qup" text="Quantity-Low to Hight">Quantity-Least to Most</option>\
                    <option value="qdown" text="Quantity-High to Low">Quantity-Most to Least</option></select></div></td></tr> \
-           <tr><td><div style="text-align: left;"> Requests per second:   0.5<input id="speedSel" type="range" min="0.5" max="10" step="0.5" value="5" style="width: 100px; vertical-align: middle;"/> 10</div></td></tr> \
+           <tr><td><div style="text-align: left;"> Requests per second:   0.5<input id="speedSel" type="range" min="0.5" max="10" step="0.5" value="5" style="width: 100px; vertical-align: middle; "/> 10 </div></td></tr> \
+           <tr><td><div style="text-align: left;"> IP Ban Optional Delay :   None <input id="optDelay" type="range" min="0" max="3000" step="250" value="0" style="width: 100px; vertical-align: middle;"/> 3 sec</div></td></tr> \
            <tr><td><div style="text-align: left;"><input type="checkbox" id="showStoreSearch" name="showStore"  ' + (options.showStoreSearch ? "checked" : "" ) + ' /> Enable store searcher on info tab</div></td></tr> \
            </tbody></table></div>  \
                <div id="myOptTableFooter" data-role="footer" style="font-size: 0.5em; width: 400px;"> \
@@ -551,6 +553,7 @@ var states = [
     // set the sort option and speed slider
     $("#sortSel").val(options.sortSel);
     $("#speedSel").val(options.speed || 8);
+    $("#optDelay").val(options.delay || 8);
     updateStoreSearch();
 
     // filter by state when the pulldown is changed
@@ -566,6 +569,14 @@ var states = [
         // save off the options
         GM_setValue('options', JSON.stringify(options));
     });
+    // set the message delay option when the slider is moved
+    $('#optDelay').change(function () {
+        options.delay = $("#optDelay").val();
+        // save off the options
+        GM_setValue('options', JSON.stringify(options));
+    });
+
+
 
      // save the option to not make rows for stores with zero items
     $('#hideInput').change(function () {
@@ -721,12 +732,20 @@ var states = [
 
         // determine how fast to send messages
         var speed = options.speed || 8;
-        var millis = 1000 / speed;
+        var optDelay = options.delay || 8;
+        var storeCount = Object.values(searchStore).filter(Boolean).length;
+        var millis = (1000 / speed) + Number(optDelay);
+
         //var millis = 5000; //5s wait to test timeout
         var rawtxt = document.querySelector('script[type="application/ld+json"]').textContent
         var arrgs = JSON.parse(rawtxt)
 
         // loop over the stores and request the product details for each store
+        //var storeCount = searchStore.filter(Boolean).length;
+        //console.log(Object.values(users).filter(user => user.user_id === 1));
+
+
+
 
         for (var storeId in searchStore) {
            // my_debug(storeId)
