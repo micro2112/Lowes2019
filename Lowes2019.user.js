@@ -16,7 +16,7 @@
 // @noframes
 // @updateURL       https://github.com/micro2112/Lowes2019/raw/master/Lowes2019.user.js
 // @downloadURL     https://github.com/micro2112/Lowes2019/raw/master/Lowes2019.user.js
-// @version     3.5.0
+// @version     3.5.1
 // @grant       unsafeWindow
 // @grant       GM_addStyle
 // @grant       GM_getResourceText
@@ -39,6 +39,7 @@
 //   3.3.0 2020-06-02 Update for new Lowes website.
 //   3.4.0 2020-08-11 Decreased requests per second limits to resolve triggering a block from LOWES. Added 'Check For Updates' Button.
 //   3.5.0 2020-10-07 Fix for new Lowes site again.
+//   3.5.1 2020-10-08 Updated time between searches to avoid IP bans. 
 
 // Copyright Phllip Cazzola 2015, 2016
 // Lowes Price Checker is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -664,7 +665,7 @@ var states = [
 
 
     // "Search" button was pressed.  Start getting prices and quantities
-    function goAction() {
+    async function goAction() {
         // create a button to export csv values
         $("#myExportCSV").remove();
         $('#myTableFooter').append("<button type='button'  id='myExportCSV'>Export Results</button>");
@@ -721,36 +722,16 @@ var states = [
         // determine how fast to send messages
         var speed = options.speed || 8;
         var millis = 1000 / speed;
+        //var millis = 5000; //5s wait to test timeout
         var rawtxt = document.querySelector('script[type="application/ld+json"]').textContent
         var arrgs = JSON.parse(rawtxt)
 
         // loop over the stores and request the product details for each store
-        var storeId = 0
+
         for (var storeId in searchStore) {
            // my_debug(storeId)
             if ( searchStore[storeId] && storeData.hasOwnProperty(storeId) ) {
                 // build the URL of the product details page w/ store ID
-                //GM_setValue(unsafeWindow.Lowes.storeId = storeId)
-//                arrgs[2].offers.availableAtOrFrom.branchCode = storeId;
-//               rawtxt = JSON.stringify(arrgs)
-//                window.eval()
-//                var storetxt = document.querySelector('script[type="application/ld+json"]').textContent
-//                var storearrgs = JSON.parse(storetxt)
-
-//                getProductId()
-//                console.log(arrgs[2].offers.price)
- //               var param = new URLSearchParams(window.location.search)
- //               for (let p of param){
- //                   console.log(p)
- //               }
-
-               // parseQty(storeId)
-                //var qURL = baseURL + unsafeWindow.Lowes.ProductDetail.productPath + '/pricing/' + storeId + '/guest/';
-                 //var qURL = unsafeWindow.location.href + '/pricing/' + storeId + '/guest/';
-                // var qURL = unsafeWindow.location.origin + '/pd/' + prodId + '/pricing/' + storeId + '/guest/';
-                //var qURL = unsafeWindow.location.origin + '/pd/' + itemID + '/pricing/' + storeId + '/guest/';
-                //var qURL = unsafeWindow.location.origin + '/wcs/resources/store/' + storeId + '/storelocation/price/inventory/v1_0';
-                //var qURL = unsafeWindow.location.origin + '/pd/search/' + prodId + '/pricing/' + storeId
                 var qURL = unsafeWindow.location.origin + '/PricingServices/price/balance?productId=' + prodId + '&storeNumber=' + storeId
                 my_debug(qURL);
                 storeId = zeroPad(storeId, 4);
@@ -760,12 +741,17 @@ var states = [
                     console.log (data)
                     parseQty(data)
                 });
+                await sleep(millis)
 
                 // request the prodcut details.  The result is processed by the function returned by the parseQty() function
              //   setTimeout( function(url, sID) { return function() { $.get(url, parseQty(sID));}}(qURL,storeId), msgNum * millis);
                 msgNum++;
             }
         }
+    }
+
+    function sleep (time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
     }
 
     // get data on stores from Lowes.com
@@ -829,9 +815,13 @@ var states = [
              availStatus = avail1.availabileQuantity
              shipAvail = avail0.availabileQuantity
 
-
             if ( availStatus == "null" || availStatus == "undefined" || availStatus == 99999 || availStatus == 0) availStatus = 0;
             price = parseFloat(price).toFixed(2);
+            if (shipAvail == 0) {
+                shipAvail = "No"
+            } else {
+                    shipAvail = "Yes"
+            }
             my_debug('price: ' + price);
             my_debug('number in store: ' + availStatus);
 //            addResult(storeNum, availStatus, price, shipAvail);
