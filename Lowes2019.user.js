@@ -16,7 +16,7 @@
 // @noframes
 // @updateURL       https://github.com/micro2112/Lowes2019/raw/master/Lowes2019.user.js
 // @downloadURL     https://github.com/micro2112/Lowes2019/raw/master/Lowes2019.user.js
-// @version     3.5.2
+// @version     3.5.3
 // @grant       unsafeWindow
 // @grant       GM_addStyle
 // @grant       GM_getResourceText
@@ -27,7 +27,7 @@
 // @grant       GM_listValues
 // @noframes
 // @run-at document-end
-// @contributionURL https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FDW4NZ6PRMDMJ&lc=US&item_name=Lowes%20Price%20Checker&item_number=LPC&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
+// @contributionURL https://www.paypal.me/micro2112?locale.x=en_U
 // @contributionAmount $5.00
 // ==/UserScript==
 //   CHANGELOG
@@ -41,6 +41,7 @@
 //   3.5.0 2020-10-07 Fix for new Lowes site again.
 //   3.5.1 2020-10-08 Restored time delay between searches to avoid IP bans. 
 //   3.5.2 2020-10-09 Additional Delay option for IP bans, useful for searching high number of stores. 
+//   3.5.3 2021-06-10 Price variable change. 
 
 // Copyright Phllip Cazzola 2015, 2016
 // Lowes Price Checker is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -830,7 +831,8 @@ var states = [
              var storeNum = DataArr.storeNumber
              var avail1 = DataArr.availability[1]
              var avail0 = DataArr.availability[0]
-             price = DataArr.price.selling
+             // price = DataArr.price.selling // Replaced 20210610 with .retail
+             price = DataArr.price.retail
              availStatus = avail1.availabileQuantity
              shipAvail = avail0.availabileQuantity
 
