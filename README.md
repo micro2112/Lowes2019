@@ -9,8 +9,8 @@ I had some time and decided to try to update it myself.
 I create this repo to host the new version.
 
 # Issues Reported
-~~ # OCT 2021 - Script is down again. Lowes updated again. 
-~~ # ~~** AUG 2020 - SCRIPT IS CURRENTLY BROKEN, Lowes updated again and broke the search code. Trying to find a fix. **~~
+* OCT 2021 - Script is down again. Lowes updated again. 
+
 
 ## Installation
 
@@ -26,15 +26,17 @@ I create this repo to host the new version.
 ## How to use. 
  When you are on a product page, the Check Price button will appear.
  
- ![CheckPrice](https://github.com/micro2112/Lowes2019/blob/master/images/PriceCheck.JPG)
+ ![CheckPrice](https://github.com/micro2112/Lowes2019/blob/master/images/CheckPriceButton.JPG)
  
  You will then see the main landing page
  
- Find stores button generates a GIANT list that needs reformatted into this script. If you find a store missing report an issue here and I can update the list. 
+ Find stores button generates a GIANT list that needs reformatted into this script. 
+ 
+ If you find a store missing report an issue here and I can update the list.
  
  ![LandingPage](https://github.com/micro2112/Lowes2019/blob/master/images/InitialTab.JPG)
  
- Select the store locations in your area on the STORES tab
+  Select the store locations in your area on the STORES tab
  
  ![Stores](https://github.com/micro2112/Lowes2019/blob/master/images/SelectStores.JPG)
  
